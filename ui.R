@@ -7,6 +7,7 @@
 # :)
 
 library(shiny)
+library(rworldxtra)
 
 shinyUI(fluidPage(
 
@@ -18,7 +19,17 @@ shinyUI(fluidPage(
     sidebarPanel(
       
       selectInput("year", "Year",
-                  c(2011, 2012, 2013, 2014, 2015, 2016, 2017), multiple = FALSE, selected = NULL), 
+                  c(2011, 2012, 2013, 2014, 2015, 2016, 2017), multiple = FALSE,
+                  selected = NULL), 
+      selectInput("month", "Month",
+                  c(seq(1,12,1)), multiple = FALSE,
+                  selected = NULL),
+      selectInput("day", "Day",
+                  c(seq(1,31,1)), multiple = FALSE,
+                  selected = NULL),
+      selectInput("time", "Time (24 hours format)",
+                  c(0, 3, 6, 9, 12, 15, 18, 21), multiple = FALSE,
+                  selected = NULL),
       
       sliderInput("bins",
                   "Number of bins:",
@@ -29,7 +40,9 @@ shinyUI(fluidPage(
 
     # Show a plot of the generated distribution
     mainPanel(
+      plotOutput("map"),
       plotOutput("distPlot")
+      
     )
   )
 ))

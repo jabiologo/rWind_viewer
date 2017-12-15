@@ -6,9 +6,18 @@
 #
 
 library(shiny)
+library(rworldxtra)
+library(raster)
+data(countriesHigh)
+
+my.object <- reactiveValues(my.extent = extent(-180,180,-90,83))
 
 shinyServer(function(input, output) {
 
+  output$map <- renderPlot({
+    plot(crop(countriesHigh,my.object$my.extent))
+  })
+  
   output$distPlot <- renderPlot({
 
     # generate bins based on input$bins from ui.R
