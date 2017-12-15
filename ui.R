@@ -17,10 +17,10 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
-      
+      h4("Choose a date to compute rWind"),
       selectInput("year", "Year",
                   c(2011, 2012, 2013, 2014, 2015, 2016, 2017), multiple = FALSE,
-                  selected = NULL), 
+                  selected = 2014), 
       selectInput("month", "Month",
                   c(seq(1,12,1)), multiple = FALSE,
                   selected = NULL),
@@ -30,18 +30,17 @@ shinyUI(fluidPage(
       selectInput("time", "Time (24 hours format)",
                   c(0, 3, 6, 9, 12, 15, 18, 21), multiple = FALSE,
                   selected = NULL),
-      
-      sliderInput("bins",
-                  "Number of bins:",
-                  min = 1,
-                  max = 50,
-                  value = 30)
+      h4("Press the button when date and extent are defined"),
+      actionButton("go", "Compute"),
+      h4("To calculate a min cost route, select an origin (one click) and destination (double click) on the winds map and press the button"),
+      actionButton("ruta", "Route")
     ),
 
     # Show a plot of the generated distribution
     mainPanel(
-      plotOutput("map"),
-      plotOutput("distPlot")
+      plotOutput("map", brush = "plot_brush"),
+      plotOutput("plot_speed", click ="start" , dblclick ="finish" )
+  
       
     )
   )
