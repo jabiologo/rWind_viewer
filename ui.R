@@ -16,6 +16,10 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
+      
+      selectInput("year", "Year",
+                  c(2011, 2012, 2013, 2014, 2015, 2016, 2017), multiple = FALSE, selected = NULL), 
+      
       sliderInput("bins",
                   "Number of bins:",
                   min = 1,
